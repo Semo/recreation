@@ -1,12 +1,14 @@
 package com.y4d3.services;
 
 import com.y4d3.domain.Customer;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 /**
  * Created by semo on 17.12.16.
  */
+@Service
 public class CustomerServiceImpl implements CustomerService {
 
     private Map<Integer, Customer> customers;
