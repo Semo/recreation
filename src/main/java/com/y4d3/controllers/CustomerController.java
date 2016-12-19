@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * Created by semo on 17.12.16.
  */
+@RequestMapping("customer")
 @Controller
 public class CustomerController {
 
@@ -22,40 +23,40 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @RequestMapping("/customer/{id}")
+    @RequestMapping("/{id}")
     public String getCustomer(@PathVariable Integer id, Model model) {
         model.addAttribute("customer", customerService.getById(id));
         return "customer";
     }
 
-    @RequestMapping("/customer/edit/{id}")
+    @RequestMapping("/edit/{id}")
     public String editCustomer(@PathVariable Integer id, Model model) {
         model.addAttribute("customer", customerService.getById(id));
         return "customerform";
     }
 
-    @RequestMapping("/customer/new")
+    @RequestMapping("/new")
     public String newCustomer(Model model) {
         model.addAttribute("customer", new Customer());
         return "customerform";
     }
 
-    @RequestMapping("/customers")
+    @RequestMapping({"/list", "/"})
     public String listCustomers(Model model) {
         model.addAttribute("customers", customerService.listAll());
         return "customers";
     }
 
-    @RequestMapping(value = "/customer", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public String saveOrUpdateCustomer(Customer customer) {
         Customer savedCustomer = customerService.saveOrUpdate(customer);
         return "redirect:/customer/" + savedCustomer.getId();
     }
 
-    @RequestMapping("customer/delete/{id}")
+    @RequestMapping("/delete/{id}")
     public String deleteCustomer(@PathVariable Integer id) {
         customerService.delete(id);
-        return "redirect:/customers";
+        return "redirect:/customer/list";
     }
 
 }

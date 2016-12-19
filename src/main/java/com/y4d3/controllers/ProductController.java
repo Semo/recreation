@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * Created by root on 15.12.16.
  */
+@RequestMapping("product")
 @Controller
 public class ProductController {
 
@@ -22,40 +23,40 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @RequestMapping("/product/{id}")
+    @RequestMapping("/{id}")
     public String getProduct(@PathVariable Integer id, Model model) {
-        model.addAttribute("product", productService.getProductById(id));
+        model.addAttribute("product", productService.getById(id));
         return "product";
     }
 
-    @RequestMapping("/product/edit/{id}")
+    @RequestMapping("/edit/{id}")
     public String editProduct(@PathVariable Integer id, Model model) {
-        model.addAttribute("product", productService.getProductById(id));
+        model.addAttribute("product", productService.getById(id));
         return "productform";
     }
 
-    @RequestMapping("/products")
+    @RequestMapping({"/list", "/"})
     public String listProducts(Model model) {
-        model.addAttribute("products", productService.listAllProducts());
+        model.addAttribute("products", productService.listAll());
         return "products";
     }
 
-    @RequestMapping("/product/new")
+    @RequestMapping("/new")
     public String newProduct(Model model) {
         model.addAttribute("product", new Product());
         return "productform";
     }
 
-    @RequestMapping(value = "/product", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public String saveOrUpdateProduct(Product product) {
-        Product savedProduct = productService.saveOrUpdateProduct(product);
+        Product savedProduct = productService.saveOrUpdate(product);
         return "redirect:/product/" + savedProduct.getId();
     }
 
-    @RequestMapping("product/delete/{id}")
+    @RequestMapping("/delete/{id}")
     public String deleteProduct(@PathVariable Integer id) {
-        productService.deleteProduct(id);
-        return "redirect:/products";
+        productService.delete(id);
+        return "redirect:/product/list";
     }
 
 }

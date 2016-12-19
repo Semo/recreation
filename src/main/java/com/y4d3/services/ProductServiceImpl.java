@@ -19,17 +19,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> listAllProducts() {
+    public List<Product> listAll() {
         return new ArrayList<>(products.values());
     }
 
     @Override
-    public Product getProductById(Integer id) {
+    public Product getById(Integer id) {
         return products.get(id);
     }
 
     @Override
-    public Product saveOrUpdateProduct(Product product) {
+    public Product saveOrUpdate(Product product) {
         if (product != null) {
             if (product.getId() == null) {
                 product.setId(getNextKey());
@@ -42,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteProduct(Integer id) {
+    public void delete(Integer id) {
         products.remove(id);
     }
 
@@ -50,6 +50,7 @@ public class ProductServiceImpl implements ProductService {
     private Integer getNextKey() {
         return Collections.max(products.keySet()) + 1;
     }
+
 
     private void loadProducts() {
         products = new HashMap<>();
@@ -94,6 +95,4 @@ public class ProductServiceImpl implements ProductService {
 
         products.put(5, product5);
     }
-
-
 }
