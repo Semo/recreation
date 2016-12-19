@@ -3,7 +3,7 @@ package com.y4d3.domain;
 /**
  * Created by semo on 17.12.16.
  */
-public class Customer {
+public class Customer implements DomainObject {
 
     private Integer id;
     private String firstname;
@@ -16,13 +16,16 @@ public class Customer {
     private String state;
     private String zip;
 
+    @Override
     public Integer getId() {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
+
 
     public String getFirstname() {
         return firstname;

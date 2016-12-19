@@ -18,17 +18,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> listAllCustomers() {
+    public List<Customer> listAll() {
         return new ArrayList<>(customers.values());
     }
 
     @Override
-    public Customer getCustomerById(Integer id) {
+    public Customer getById(Integer id) {
         return customers.get(id);
     }
 
     @Override
-    public Customer saveOrUpdateCustomer(Customer customer) {
+    public Customer saveOrUpdate(Customer customer) {
         if (customer != null) {
             if (customer.getId() == null) {
                 customer.setId(getNextKey());
@@ -40,14 +40,18 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
+//    }
+
+    @Override
+    public void delete(Integer id) {
+        customers.remove(id);
+    }
+
+
     private Integer getNextKey() {
         return Collections.max(customers.keySet()) + 1;
     }
 
-    @Override
-    public void deleteCustomer(Integer id) {
-        customers.remove(id);
-    }
 
     private void loadAllCustomers() {
         customers = new HashMap<>();

@@ -5,17 +5,20 @@ import java.math.BigDecimal;
 /**
  * Created by root on 15.12.16.
  */
-public class Product {
+public class Product implements DomainObject {
 
     private Integer id;
     private String description;
     private BigDecimal price;
     private String imageUrl;
 
+
+    @Override
     public Integer getId() {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
