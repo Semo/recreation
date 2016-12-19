@@ -1,15 +1,13 @@
 package com.y4d3.domain;
 
-import java.math.BigInteger;
-
 /**
  * Created by semo on 17.12.16.
  */
 public class Customer {
 
-    private Integer customerId;
+    private Integer id;
     private String firstname;
-    private String name;
+    private String lastname;
     private String email;
     private String phonenumber;
     private String addressOne;
@@ -18,12 +16,12 @@ public class Customer {
     private String state;
     private String zip;
 
-    public Integer getCustomerId() {
-        return customerId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getFirstname() {
@@ -34,12 +32,12 @@ public class Customer {
         this.firstname = firstname;
     }
 
-    public String getName() {
-        return name;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {

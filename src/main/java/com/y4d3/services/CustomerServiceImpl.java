@@ -30,10 +30,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer saveOrUpdateCustomer(Customer customer) {
         if (customer != null) {
-            if (customer.getCustomerId() == null) {
-                customer.setCustomerId(getNextKey());
+            if (customer.getId() == null) {
+                customer.setId(getNextKey());
             }
-            customers.put(customer.getCustomerId(), customer);
+            customers.put(customer.getId(), customer);
             return customer;
         } else {
             throw new IllegalArgumentException("Customer must not be null!");
@@ -53,8 +53,9 @@ public class CustomerServiceImpl implements CustomerService {
         customers = new HashMap<>();
 
         Customer c1 = new Customer();
+        c1.setId(1);
         c1.setFirstname("Peter");
-        c1.setName("Venkman");
+        c1.setLastname("Venkman");
         c1.setAddressOne("Mumbelstrasse 1");
         c1.setAddress_two("Mumbelstrasse 12");
         c1.setCity("2132");
@@ -66,8 +67,9 @@ public class CustomerServiceImpl implements CustomerService {
         customers.put(1, c1);
 
         Customer c2 = new Customer();
+        c2.setId(2);
         c2.setFirstname("Ray");
-        c2.setName("Stantz");
+        c2.setLastname("Stantz");
         c2.setAddressOne("Mumbelstrasse 1");
         c2.setAddress_two("Mumbelstrasse 12");
         c2.setCity("2132");
@@ -79,8 +81,9 @@ public class CustomerServiceImpl implements CustomerService {
         customers.put(2, c2);
 
         Customer c3 = new Customer();
+        c3.setId(3);
         c3.setFirstname("Egon");
-        c3.setName("Spengler");
+        c3.setLastname("Spengler");
         c3.setAddressOne("Mumbelstrasse 1");
         c3.setAddress_two("Mumbelstrasse 12");
         c3.setCity("2132");
@@ -92,8 +95,9 @@ public class CustomerServiceImpl implements CustomerService {
         customers.put(3, c3);
 
         Customer c4 = new Customer();
+        c4.setId(4);
         c4.setFirstname("Winston");
-        c4.setName("Zeddemore");
+        c4.setLastname("Zeddemore");
         c4.setAddressOne("Mumbelstrasse 1");
         c4.setAddress_two("Mumbelstrasse 12");
         c4.setCity("2132");
