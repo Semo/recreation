@@ -1,11 +1,20 @@
 package com.y4d3.domain;
 
+import javax.persistence.*;
+
 /**
  * Created by semo on 17.12.16.
  */
+@Entity
 public class Customer implements DomainObject {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @Version
+    private Integer version;
+
     private String firstname;
     private String lastname;
     private String email;
@@ -26,6 +35,13 @@ public class Customer implements DomainObject {
         this.id = id;
     }
 
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 
     public String getFirstname() {
         return firstname;

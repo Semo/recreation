@@ -1,6 +1,7 @@
 package com.y4d3.services;
 
 import com.y4d3.domain.Product;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -10,6 +11,7 @@ import java.util.*;
  * Created by root on 15.12.16.
  */
 @Service
+@Profile("map")
 public class ProductServiceImpl implements ProductService {
 
     private Map<Integer, Product> products;
