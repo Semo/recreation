@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  * Created by semo on 21.12.16.
  */
 @Component
-public class Bootup implements ApplicationListener<ContextRefreshedEvent> {
+public class BootupProducts implements ApplicationListener<ContextRefreshedEvent> {
 
     private ProductService productService;
 
