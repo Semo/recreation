@@ -1,46 +1,33 @@
 package com.y4d3.domain;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 /**
  * Created by semo on 17.12.16.
  */
 @Entity
-public class Customer implements DomainObject {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-
-    @Version
-    private Integer version;
+public class Customer extends ADomainObject {
 
     private String firstname;
     private String lastname;
     private String email;
     private String phonenumber;
-    private String addressOne;
-    private String address_two;
-    private String city;
-    private String state;
-    private String zip;
+
+    @Embedded
+    private Address billingAddress;
+
+    @Embedded
+    private Address shippingAddress;
+
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private User user;
 
     @Override
     public Integer getId() {
         return id;
-    }
-
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
     }
 
     public String getFirstname() {
@@ -75,43 +62,26 @@ public class Customer implements DomainObject {
         this.phonenumber = phonenumber;
     }
 
-    public String getAddressOne() {
-        return addressOne;
+    public User getUser() {
+        return user;
     }
 
-    public void setAddressOne(String addressOne) {
-        this.addressOne = addressOne;
+    public void setUser(User user) {
     }
 
-    public String getAddress_two() {
-        return address_two;
+    public Address getBillingAddress() {
+        return billingAddress;
     }
 
-    public void setAddress_two(String address_two) {
-        this.address_two = address_two;
+    public void setBillingAddress(Address billingAddress) {
+        this.billingAddress = billingAddress;
     }
 
-    public String getCity() {
-        return city;
+    public Address getShippingAddress() {
+        return shippingAddress;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getZip() {
-        return zip;
-    }
-
-    public void setZip(String zip) {
-        this.zip = zip;
+    public void setShippingAddress(Address shippingAddress) {
+        this.shippingAddress = shippingAddress;
     }
 }

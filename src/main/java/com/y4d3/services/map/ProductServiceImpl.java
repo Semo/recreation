@@ -1,6 +1,7 @@
-package com.y4d3.services;
+package com.y4d3.services.map;
 
 import com.y4d3.domain.Product;
+import com.y4d3.services.ProductService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
