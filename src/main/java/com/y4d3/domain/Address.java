@@ -1,5 +1,6 @@
 package com.y4d3.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
@@ -8,10 +9,19 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Address {
 
+    @Column(insertable = false, updatable = false)
     private String addressLine1;
+
+    @Column(insertable = false, updatable = false)
     private String addressLine2;
+
+    @Column(insertable = false, updatable = false)
     private String city;
+
+    @Column(insertable = false, updatable = false)
     private String state;
+
+    @Column(insertable = false, updatable = false)
     private String zip;
 
     public String getAddressLine1() {

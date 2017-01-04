@@ -2,7 +2,7 @@ package com.y4d3.services.jpa;
 
 import com.y4d3.domain.Customer;
 import com.y4d3.services.CustomerService;
-import com.y4d3.services.encryption.EncryptionService;
+import com.y4d3.services.encryption.EncryptionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -17,10 +17,11 @@ import java.util.List;
 @Profile("jpadao")
 public class CustomerSrvcJpaDaoImpl extends AEntityManagerFactory implements CustomerService {
 
-    private EncryptionService encryptionService;
+
+    private EncryptionServiceImpl encryptionService;
 
     @Autowired
-    public void setEncryptionService(EncryptionService encryptionService) {
+    public void setEncryptionService(EncryptionServiceImpl encryptionService) {
         this.encryptionService = encryptionService;
     }
 

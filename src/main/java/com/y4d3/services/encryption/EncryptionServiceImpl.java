@@ -10,20 +10,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class EncryptionServiceImpl implements EncryptionService {
 
-    private StrongPasswordEncryptor strongEncryptor;
+    private StrongPasswordEncryptor encryptor;
 
     @Autowired
-    public void setStrongEncryptor(StrongPasswordEncryptor strongEncryptor) {
-        this.strongEncryptor = strongEncryptor;
+    public void setEncryptor(StrongPasswordEncryptor encryptor) {
+        this.encryptor = encryptor;
     }
 
     @Override
     public String encryptString(String input) {
-        return strongEncryptor.encryptPassword(input);
+        return encryptor.encryptPassword(input);
     }
 
     @Override
     public boolean validatePassword(String input, String encryptedPassword) {
-        return strongEncryptor.checkPassword(input, encryptedPassword);
+        return encryptor.checkPassword(input, encryptedPassword);
     }
 }
