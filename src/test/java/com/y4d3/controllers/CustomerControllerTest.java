@@ -28,10 +28,10 @@ public class CustomerControllerTest {
     @Mock
     private CustomerService customerService;
 
-    private MockMvc mockMvc;
-
     @InjectMocks
     private CustomerController customerController;
+
+    private MockMvc mockMvc;
 
     @Before
     public void setup() {
@@ -41,7 +41,6 @@ public class CustomerControllerTest {
 
     @Test
     public void testList() throws Exception {
-
         List<Customer> customers = new ArrayList<>();
         customers.add(new Customer());
         customers.add(new Customer());

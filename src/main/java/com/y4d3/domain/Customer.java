@@ -67,6 +67,7 @@ public class Customer extends ADomainObject {
     }
 
     public void setUser(User user) {
+        this.user = user;
     }
 
     public Address getBillingAddress() {

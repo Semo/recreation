@@ -1,9 +1,10 @@
 package com.y4d3.domain;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
+import com.y4d3.domain.roles.Role;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by semo on 27.12.16.
@@ -17,16 +18,22 @@ public class User extends ADomainObject {
     private String password;
 
     private String encryptedPassword;
+    private Boolean isActive = true;
 
-    private String isActive;
-
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST})
     private Customer customer;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Cart cart;
 
-    private Boolean isEncrytionActive = true;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable
+    // ~ defaults to @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "user_id"),
+    //     inverseJoinColumns = @joinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
+
+
+//    private Boolean isEncrytionActive = true;
 
     public Customer getCustomer() {
         return customer;
@@ -52,11 +59,11 @@ public class User extends ADomainObject {
         this.password = password;
     }
 
-    public String getIsActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public void setIsActive(String isActive) {
+    public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
     }
 
@@ -77,11 +84,35 @@ public class User extends ADomainObject {
     }
 
     public Boolean getEncrytionActive() {
-        return isEncrytionActive;
+        return isActive;
     }
 
     public void setEncrytionActive(Boolean encrytionActive) {
-        isEncrytionActive = encrytionActive;
+
+        isActive = encrytionActive;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void addRole(Role role) {
+        if (!this.roles.contains(role)) {
+            this.roles.add(role);
+        }
+
+        if (!role.getUsers().contains(this)) {
+            role.getUsers().add(this);
+        }
+    }
+
+    public void removeRole(Role role) {
+        this.roles.remove(role);
+        role.getUsers().remove(this);
     }
 
 }

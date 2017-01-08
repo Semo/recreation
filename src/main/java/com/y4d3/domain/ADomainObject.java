@@ -21,7 +21,7 @@ public class ADomainObject implements DomainObject {
 
     @Override
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     @Override

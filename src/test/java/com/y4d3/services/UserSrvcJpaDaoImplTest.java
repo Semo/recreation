@@ -26,7 +26,7 @@ public class UserSrvcJpaDaoImplTest {
 
     private UserService userService;
     private ProductService productService;
-    private CartItem cartItemOne;
+//    private CartItem cartItemOne;
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -70,6 +70,7 @@ public class UserSrvcJpaDaoImplTest {
         user.setCustomer(customer);
 
         User savedUser = userService.saveOrUpdate(user);
+
 
         assert savedUser.getId() != null;
         assert savedUser.getVersion() != null;
@@ -150,6 +151,6 @@ public class UserSrvcJpaDaoImplTest {
 
         userService.saveOrUpdate(savedUser);
 
-        assert savedUser.getCart().getCartItems().size() == 1;
+        assert savedUser.getCart().getCartItems().size() == 4;
     }
 }

@@ -25,7 +25,7 @@ public class UserSrvcJpaDaoImpl extends AEntityManagerFactory implements UserSer
     }
 
     @Override
-    public List<User> listAll() {
+    public List<?> listAll() {
         EntityManager em = entityManagerFactory.createEntityManager();
         return em.createQuery("from User", User.class).getResultList();
     }
