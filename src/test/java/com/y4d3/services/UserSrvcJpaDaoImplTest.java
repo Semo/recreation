@@ -14,6 +14,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -146,11 +147,9 @@ public class UserSrvcJpaDaoImplTest {
         User savedUser = userService.saveOrUpdate(user);
 
         assert savedUser.getCart().getCartItems().size() == 2;
-
         savedUser.getCart().removeCartItem(savedUser.getCart().getCartItems().get(0));
 
         userService.saveOrUpdate(savedUser);
-
-        assert savedUser.getCart().getCartItems().size() == 4;
+        assert savedUser.getCart().getCartItems().size() == 1;
     }
 }

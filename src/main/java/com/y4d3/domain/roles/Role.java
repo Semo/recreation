@@ -3,10 +3,7 @@ package com.y4d3.domain.roles;
 import com.y4d3.domain.ADomainObject;
 import com.y4d3.domain.User;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +16,7 @@ public class Role extends ADomainObject {
     private String role;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable
+    @JoinTable (name = "USER_ROLE", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     // ~ defaults to @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "role_id"),
     //     inverseJoinColumns = @joinColumn(name = "user_id"))
     private List<User> users = new ArrayList<User>();

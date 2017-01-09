@@ -42,6 +42,6 @@ public class Cart extends ADomainObject {
 
     public void removeCartItem(CartItem cartItem) {
         cartItem.setCart(null);
-        cartItems.add(cartItem);
+        cartItems.remove(cartItem);
     }
 }
