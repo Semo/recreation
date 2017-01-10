@@ -72,9 +72,9 @@ public class UserSrvcJpaDaoImplTest {
 
         User savedUser = userService.saveOrUpdate(user);
 
-
         assert savedUser.getId() != null;
         assert savedUser.getVersion() != null;
+        System.out.println(savedUser.getCustomer());
         assert savedUser.getCustomer() != null;
         assert savedUser.getCustomer().getId() != null;
 

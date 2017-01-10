@@ -40,6 +40,7 @@ public class User extends ADomainObject {
     }
 
     public void setCustomer(Customer customer) {
+        this.customer = customer;
         customer.setUser(this);
     }
 
