@@ -1,7 +1,10 @@
 package com.y4d3.services.map;
 
+import com.y4d3.commands.CustomerForm;
+import com.y4d3.converter.CustomerFormToCustomer;
 import com.y4d3.domain.Customer;
 import com.y4d3.services.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,12 @@ import java.util.Map;
 public class CustomerServiceImpl implements CustomerService {
 
     private Map<Integer, Customer> customers;
+    private CustomerFormToCustomer customerFormToCustomer;
+
+    @Autowired
+    public void setCustomerFormToCustomer(CustomerFormToCustomer customerFormToCustomer) {
+        this.customerFormToCustomer = customerFormToCustomer;
+    }
 
     @Override
     public List<Customer> listAll() {
@@ -52,4 +61,19 @@ public class CustomerServiceImpl implements CustomerService {
         return Collections.max(customers.keySet()) + 1;
     }
 
+    @Override
+    public Customer saveOrUpdateCustomerForm(CustomerForm customerForm) {
+        Customer newCustomer = customerFormToCustomer.convert(customerForm);
+
+        if(newCustomer.getUser().getId() != null){
+            Customer existingCustomer = getById(newCustomer.getId());
+
+            newCustomer.getUser().setIsActive(existingCustomer.getUser().getIsActive());
+        }
+
+        return saveOrUpdate(newCustomer);
+
+
+
+    }
 }

@@ -1,5 +1,7 @@
 package com.y4d3.services.jpa;
 
+import com.y4d3.commands.CustomerForm;
+import com.y4d3.converter.CustomerFormToCustomer;
 import com.y4d3.domain.Customer;
 import com.y4d3.services.CustomerService;
 import com.y4d3.services.encryption.EncryptionServiceImpl;
@@ -19,6 +21,13 @@ public class CustomerSrvcJpaDaoImpl extends AEntityManagerFactory implements Cus
 
 
     private EncryptionServiceImpl encryptionService;
+
+    private CustomerFormToCustomer customerFormToCustomer;
+
+    @Autowired
+    public void setCustomerFormToCustomer(CustomerFormToCustomer customerFormToCustomer) {
+        this.customerFormToCustomer = customerFormToCustomer;
+    }
 
     @Autowired
     public void setEncryptionService(EncryptionServiceImpl encryptionService) {
@@ -60,5 +69,20 @@ public class CustomerSrvcJpaDaoImpl extends AEntityManagerFactory implements Cus
         em.getTransaction().begin();
         em.remove(em.find(Customer.class, id));
         em.getTransaction().commit();
+    }
+
+    @Override
+    public Customer saveOrUpdateCustomerForm(CustomerForm customerForm) {
+        Customer newCustomer = customerFormToCustomer.convert(customerForm);
+
+        //enhance if saved
+        if(newCustomer.getUser().getId() != null){
+            Customer existingCustomer = getById(newCustomer.getUser().getId());
+
+            //set enabled flag from db
+            newCustomer.getUser().setIsActive(existingCustomer.getUser().getIsActive());
+        }
+
+        return saveOrUpdate(newCustomer);
     }
 }

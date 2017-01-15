@@ -1,5 +1,6 @@
 package com.y4d3.controllers;
 
+import com.y4d3.commands.CustomerForm;
 import com.y4d3.domain.Customer;
 import com.y4d3.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,21 @@ public class CustomerController {
 
     @RequestMapping("/edit/{id}")
     public String editCustomer(@PathVariable Integer id, Model model) {
-        model.addAttribute("customer", customerService.getById(id));
-        return "customerform";
+        Customer customer = customerService.getById(id);
+
+        CustomerForm customerForm = new CustomerForm();
+
+        customerForm.setCustomerId(customer.getId());
+        customerForm.setCustomerVersion(customer.getVersion());
+        customerForm.setEmail(customer.getEmail());
+        customerForm.setFirstName(customer.getFirstname());
+        customerForm.setLastName(customer.getLastname());
+        customerForm.setPhoneNumber(customer.getPhonenumber());
+        customerForm.setUserId(customer.getUser().getId());
+        customerForm.setUserName(customer.getUser().getUsername());
+        customerForm.setUserVersion(customer.getUser().getVersion());
+        model.addAttribute("customer", customerForm);
+        return "customer/customerform";
     }
 
     @RequestMapping("/new")
