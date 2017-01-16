@@ -1,5 +1,10 @@
 package com.y4d3.commands;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Size;
+
 /**
  * Created by gandalf on 13.01.2017.
  */
@@ -9,11 +14,22 @@ public class CustomerForm {
     private Integer userVersion;
     private Integer customerId;
     private Integer customerVersion;
+
+    @NotEmpty
+    @Size(min = 6, max = 75)
     private String userName;
+
+    @NotEmpty
     private String passwordText;
+
+    @NotEmpty
     private String passwordTextConf;
+
     private String firstName;
     private String lastName;
+
+    @NotEmpty
+    @Email
     private String email;
     private String phoneNumber;
 
