@@ -17,10 +17,10 @@ public class Customer extends ADomainObject {
     private String phonenumber;
 
     @Embedded
-    private Address billingAddress;
+    private Address billingAddress = new Address();
 
     @Embedded
-    private Address shippingAddress;
+    private Address shippingAddress = new Address();
 
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private User user;
