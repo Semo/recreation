@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * Created by semo on 17.12.16.
  */
-@RequestMapping("customer")
+@RequestMapping("/customer")
 @Controller
 public class CustomerController {
 
@@ -51,7 +51,7 @@ public class CustomerController {
 
     @RequestMapping("/new")
     public String newCustomer(Model model) {
-        model.addAttribute("customer", new Customer());
+        model.addAttribute("customer", new CustomerForm());
         return "customerform";
     }
 
@@ -62,9 +62,9 @@ public class CustomerController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String saveOrUpdateCustomer(Customer customer) {
-        Customer savedCustomer = customerService.saveOrUpdate(customer);
-        return "redirect:/customer/" + savedCustomer.getId();
+    public String saveOrUpdate(CustomerForm customerForm) {
+        Customer savedCustomer = customerService.saveOrUpdateCustomerForm(customerForm);
+        return "redirect:/customer/show/" + savedCustomer.getId();
     }
 
     @RequestMapping("/delete/{id}")

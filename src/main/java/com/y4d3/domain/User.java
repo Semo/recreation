@@ -20,7 +20,7 @@ public class User extends ADomainObject {
     private String encryptedPassword;
     private Boolean isActive = true;
 
-    @OneToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST})
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Customer customer;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)

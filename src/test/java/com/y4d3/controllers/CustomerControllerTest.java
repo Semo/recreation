@@ -1,7 +1,9 @@
 package com.y4d3.controllers;
 
+import com.y4d3.commands.CustomerForm;
 import com.y4d3.domain.Address;
 import com.y4d3.domain.Customer;
+import com.y4d3.domain.User;
 import com.y4d3.services.CustomerService;
 import org.junit.Before;
 import org.junit.Test;
@@ -78,7 +80,7 @@ public class CustomerControllerTest {
         mockMvc.perform(get("/customer/new"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("customerform"))
-                .andExpect(model().attribute("customer", instanceOf(Customer.class)));
+                .andExpect(model().attribute("customer", instanceOf(CustomerForm.class)));
     }
 
     @Test
@@ -118,6 +120,8 @@ public class CustomerControllerTest {
         String zipCode = "02254";
         String email = "joedoe@mailserver.com";
         String phoneNumber = "+14 / 222 555 444";
+        String username = "mweston";
+        String password = "password";
 
         returnCustomer.setId(id);
         returnCustomer.setFirstname(firstName);
@@ -130,49 +134,40 @@ public class CustomerControllerTest {
         returnCustomer.getBillingAddress().setZip(zipCode);
         returnCustomer.setEmail(email);
         returnCustomer.setPhonenumber(phoneNumber);
+        returnCustomer.setUser(new User());
+        returnCustomer.getUser().setUsername(username);
+        returnCustomer.getUser().setPassword(password);
 
-        when(customerService.saveOrUpdate(Matchers.<Customer>any())).thenReturn(returnCustomer);
+        when(customerService.saveOrUpdateCustomerForm(Matchers.<CustomerForm>any())).thenReturn(returnCustomer);
+        when(customerService.getById(Matchers.<Integer>any())).thenReturn(returnCustomer);
 
         mockMvc.perform(post("/customer")
-                .param("id", "1")
-                .param("firstname", firstName)
-                .param("lastname", lastName)
+                .param("customerId", "1")
+                .param("firstName", firstName)
+                .param("lastName", lastName)
+                .param("userName", username)
+                .param("passwordText", password)
+                .param("passwordTextConf", password)
                 .param("shippingAddress.addressLine1", addressLineUno)
                 .param("shippingAddress.addressLine2", addressLine2)
                 .param("shippingAddress.city", city)
                 .param("shippingAddress.state", state)
-                .param("shippingAddress.zip", zipCode)
+                .param("shippingAddress.zipCode", zipCode)
                 .param("email", email)
-                .param("phonenumber", phoneNumber))
+                .param("phoneNumber", phoneNumber))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/customer/1"));
-//                .andExpect(model().attribute("customer", instanceOf(Customer.class)))
-//                .andExpect(model().attribute("customer", hasProperty("firstname", is(firstName))))
-//                .andExpect(model().attribute("customer", hasProperty("lastname", is(lastName))))
-//                .andExpect(model().attribute("customer", hasProperty("shippingAddress", hasProperty("addressLine1", is(addressLineUno)))))
-//                .andExpect(model().attribute("customer", hasProperty("shippingAddress", hasProperty("addressLine2", is(addressLine2)))))
-//                .andExpect(model().attribute("customer", hasProperty("shippingAddress", hasProperty("city", is(city)))))
-//                .andExpect(model().attribute("customer", hasProperty("shippingAddress", hasProperty("state", is(state)))))
-//                .andExpect(model().attribute("customer", hasProperty("shippingAddress", hasProperty("zip", is(zipCode)))))
-//                .andExpect(model().attribute("customer", hasProperty("email", is(email))))
-//                .andExpect(model().attribute("customer", hasProperty("phonenumber", is(phoneNumber))));
+                .andExpect(view().name("redirect:/customer/show/1"));
 
-        ArgumentCaptor<Customer> customerCaptor = ArgumentCaptor.forClass(Customer.class);
-        verify(customerService).saveOrUpdate(customerCaptor.capture());
+        ArgumentCaptor<CustomerForm> customerCaptor = ArgumentCaptor.forClass(CustomerForm.class);
+        verify(customerService).saveOrUpdateCustomerForm(customerCaptor.capture());
 
-        Customer boundCustomer = customerCaptor.getValue();
+        CustomerForm boundCustomer = customerCaptor.getValue();
 
-        assertEquals(id, boundCustomer.getId());
-        assertEquals(firstName, boundCustomer.getFirstname());
-        assertEquals(lastName, boundCustomer.getLastname());
-        assertEquals(addressLineUno, boundCustomer.getShippingAddress().getAddressLine1());
-        assertEquals(addressLine2, boundCustomer.getShippingAddress().getAddressLine2());
-        assertEquals(city, boundCustomer.getShippingAddress().getCity());
-        assertEquals(state, boundCustomer.getShippingAddress().getState());
-        assertEquals(zipCode, boundCustomer.getShippingAddress().getZip());
+        assertEquals(id, boundCustomer.getCustomerId());
+        assertEquals(firstName, boundCustomer.getFirstName());
+        assertEquals(lastName, boundCustomer.getLastName());
         assertEquals(email, boundCustomer.getEmail());
-        assertEquals(phoneNumber, boundCustomer.getPhonenumber());
-
+        assertEquals(phoneNumber, boundCustomer.getPhoneNumber());
     }
 
 }

@@ -72,8 +72,5 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         return saveOrUpdate(newCustomer);
-
-
-
     }
 }
